@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewData["Title"] || Stepre</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Poppins:400,300,500,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicon.ico">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" asp-append-version="true">
+
+    <!-- owl.carousel CSS -->
+    <link rel="stylesheet" href="~/css/owl.carousel.css"asp-append-version="true">
+
+    <!-- owl.theme CSS -->
+    <link rel="stylesheet" href="~/css/owl.theme.css" asp-append-version="true">
+
+    <!-- owl.transitions CSS -->
+    <link rel="stylesheet" href="~/css/owl.transitions.css" asp-append-version="true">
+
+    <!-- font-awesome.min CSS -->
+    <link rel="stylesheet" href="~/css/font-awesome.min.css" asp-append-version="true">
+
+    <!-- animate CSS -->
+    <link rel="stylesheet" href="~/css/animate.css" asp-append-version="true">
+
+    <!-- nivo slider CSS -->
+    <link rel="stylesheet" href="~/lib/nivo-slider/css/nivo-slider.css" type="text/css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/nivo-slider/css/preview.css" type="text/css" media="screen" asp-append-version="true" />
+
+    <!-- normalize CSS -->
+    <link rel="stylesheet" href="~/css/normalize.css" asp-append-version="true">
+
+    <!-- main CSS -->
+    <link rel="stylesheet" href="~/css/main.css" asp-append-version="true">
+
+    <!-- UI CSS -->
+    <link rel="stylesheet" href="~/css/jquery-ui.css" asp-append-version="true">
+
+    <!-- BX Slider CSS -->
+    <link rel="stylesheet" href="~/css/jquery.bxslider.css" asp-append-version="true">
+
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" href="~/css/meanmenu.min.css"asp-append-version="true">
+
+    <!-- style CSS -->
+    <link rel="stylesheet" href="~/css/style.css" asp-append-version="true">
+
+    <!-- responsive CSS -->
+    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true">
+
+    <!-- modernizr.min JS -->
+    <script src="~/js/vendor/modernizr-2.8.3.min.js" asp-append-version="true"></script>
+</head>
+
+<body>
+    <!--Header Area Start-->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12">
+                    @await Component.InvokeAsync("Logo")
+                </div>
+                <div class="col-lg-4 col-md-12 col-sm-12 hidden-xs">
+                </div>
+                <div class="col-lg-5 col-md-12 col-sm-12">
+                    <div class="header-right-menu d-flex justify-content-md-end justify-content-between">
+                        <ul class="header-r-cart">
+                            <li>
+                                <a class="cart" asp-controller="home" asp-action="cart">
+                                    <i class="fa fa-shopping-cart"></i>Cart
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!--End of Header Area-->
+    <!--Mainmenu Area Start-->
+    <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="mainmenu d-none d-lg-block">
+                        <nav>
+                            <ul id="nav">
+                                <li class="current drop-down">
+                                    <a asp-controller="home" asp-action="index">HOME</a>
+                                </li>
+                                <li>
+                                    <a asp-controller="shop" asp-action="index">Technologies <span>Hot</span></a>
+                                    @await Component.InvokeAsync("Megamenu")
+                                </li>
+                                <li><a asp-controller="blog" asp-action="index">Blog</a></li>
+                                <li><a asp-controller="about" asp-action="index">About Us</a></li>
+                                <li><a asp-controller="privacy" asp-action="index">Privacy</a></li>
+                                <li><a asp-controller="contact" asp-action="index">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Area start -->
+        <div class="mobile-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="mobile-menu">
+                            <nav id="dropdown">
+                                <ul>
+                                    <li>
+                                        <a asp-controller="home" asp-action="index">HOME</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="shop" asp-action="index">SHOP</a>
+                                    </li>
+                                    <li><a asp-controller="about" asp-action="index">ABOUT</a>
+                                    <li><a asp-controller="contact" asp-action="index">CONTACT</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Area end -->
+    </div>
+    <!--End of Mainmenu Area-->
+    @RenderBody()
+    <!--Footer Widget Area Start-->
+    <div class="footer-widget-area">
+        <div class="container">
+            <div class="row boder-b-footer">
+                <div class="footer-border"></div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mb-30px">
+                    <div class="footer-widget">
+                        <h4>Our Support</h4>
+                        <ul class="single-widget-list">
+                            <li><a asp-controller="privacy" asp-action="index">Privacy Policy</a></li>
+                            <li><a asp-controller="shop" asp-action="index">Shop By</a></li>
+                            <li><a asp-controller="contact" asp-action="index">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 col-sm-6 col-xs-12 mb-30px">
+                </div>
+                <div class="col-lg-5 mb-30px">
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 hidden-sm col-xs-12 mb-30px">
+                    <div class="footer-widget">
+                        <h2><a asp-controller="home" asp-action="index">Stepre</a></h2>
+                        <p>Please keep contact with us. There are many products waiting for you to enjoy!</p>
+                        @await Component.InvokeAsync("Contact")
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-n-30px">
+                <div class="col-xl-5 col-lg-6 col-md-6 col-sm-12 mb-30px">
+                    @await Component.InvokeAsync("SocialMedia")
+                </div>
+                <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 mb-30px">
+                    <div class="footer-widget-bottom">
+                        @await Component.InvokeAsync("SupportedPayment")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--End of Footer Widget Area-->
+    <!-- jquery-1.11.3.min js -->
+    <script src="~/js/vendor/jquery-1.12.4.min.js" asp-append-version="true"></script>
+
+    <!-- bootstrap js -->
+    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+
+    <!-- owl.carousel.min js -->
+    <script src="~/js/owl.carousel.min.js" asp-append-version="true"></script>
+
+    <!-- nivo slider js -->
+    <script src="~/lib/nivo-slider/js/jquery.nivo.slider.js" type="text/javascript" asp-append-version="true"></script>
+    <script src="~/lib/nivo-slider/home.js" type="text/javascript" asp-append-version="true"></script>
+
+    <!-- wow js -->
+    <script src="~/js/wow.js" asp-append-version="true"></script>
+    <script asp-append-version="true">
+        new WOW().init();
+    </script>
+
+    <!-- Price Slider js -->
+    <script src="~/js/price-slider.js" asp-append-version="true"></script>
+
+    <!-- BX Slider js -->
+    <script src="~/js/jquery.bxslider.min.js" asp-append-version="true"></script>
+
+    <!--Countdown js-->
+    <script src="~/js/jquery.countdown.min.js" asp-append-version="true"></script>
+
+    <!-- Scroll Up js -->
+    <script src="~/js/jquery.scrollUp.min.js" asp-append-version="true"></script>
+
+    <!-- Elevate Zoom js -->
+    <script src="~/js/jquery.elevatezoom.js" asp-append-version="true"></script>
+
+    <!-- Meanmenu js -->
+    <script src="~/js/meanmenu.js" asp-append-version="true"></script>
+
+    <!-- plugins js -->
+    <script src="~/js/plugins.js" asp-append-version="true"></script>
+
+    <!-- main js -->
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Cart", false)
+</body>
+
+</html>

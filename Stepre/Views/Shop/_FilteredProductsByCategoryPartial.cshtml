@@ -1,0 +1,54 @@
+﻿@{
+    var products = Model;
+}
+
+<div role="tabpanel" class="tab-pane fade show active" id="grid">
+    <div class="row" id="filtered-products">
+        @foreach (var item in products)
+        {
+            <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                <div class="single-product">
+                    <a href="#">
+                        <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                        <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                    </a>
+                    <div class="product-info">
+                        <h4><a href="#">@item.Name</a></h4>
+                        <h5>$@item.Price</h5>
+                        <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                            <i class="fa fa-shopping-cart"></i>Add to
+                            cart
+                        </a>
+                        <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div role="tabpanel" class="tab-pane fade" id="list">
+    <div class="row product-list">
+        <div class="col-md-12">
+            @foreach (var item in products)
+            {
+                <div class="single-product">
+                    <a href="#">
+                        <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                    </a>
+                    <div class="product-info">
+                        <h4><a href="#">@item.Name</a></h4>
+                        <h5>$@item.Price</h5>
+                        <p>
+                            @item.Details
+                        </p>
+                        <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                            <i class="fa fa-shopping-cart"></i>Add to
+                            cart
+                        </a>
+                        <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

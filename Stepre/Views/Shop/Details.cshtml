@@ -1,0 +1,86 @@
+﻿@using Stepre.Models.Entities
+@{
+    ViewData["Title"] = "Product";
+    Product item = Model;
+}
+
+<!--Product Details Area Start-->
+<section class="product-details-area my-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 col-lg-9">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                        <div class="product-s-l">
+                            <div class="product-large">
+                                <div class="tab-content">
+                                    <div class="tab-pane active in" id="img-1">
+                                        <a href="#">
+                                            <img alt=""
+                                                 src="~/img/@item.PrimaryImageUrl">
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                        <div class="product-right-details">
+                            <div class="product-info">
+                                <h4>@item.Name</h4>
+                                <h5>$@item.Price</h5>
+                            </div>
+                        </div>
+                        <div class="borderd-para">
+                            <p>Products available in store.</p>
+                            <p>Also in stores: <span>@item.Count</span> product result.</p>
+                        </div>
+                        <p class="details">
+                            @item.Details
+                        </p>
+                        <div class="p-d-info">
+                            <div class="product-info">
+                                <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <div class="p-details-tab">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation">
+                                    <a class="active" href="#description"
+                                       aria-controls="description" role="tab" data-bs-toggle="tab">
+                                        Product
+                                        Description
+                                    </a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="#tags" aria-controls="tags" role="tab"
+                                       data-bs-toggle="tab">Product Categories</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="tab-content review">
+                            <div role="tabpanel" class="tab-pane active" id="description">
+                                <p>
+                                    @item.Description
+                                </p>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="tags">
+                                <div class="product-tag-name">
+                                    <h5>@item.Category.Name</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @await Component.InvokeAsync("RelatedProduct")
+        </div>
+    </div>
+</section>
+<!--End of product-details Area-->

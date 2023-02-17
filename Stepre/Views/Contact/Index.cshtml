@@ -1,0 +1,58 @@
+﻿@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "Contact";
+    ContactViewModel contactViewModel = Model;
+    var tags = contactViewModel.Tags;
+}
+
+<!--Contact Us Area Start-->
+<div class="contact-us-area">
+    <div class="container">
+        <div class="row flex-md-row-reverse">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="contact-us-area">
+                    <!-- google-map-area start -->
+                    <div class="google-map-area">
+                        <!--  Map Section -->
+                        <div id="contacts" class="map-area">
+                            <div class="mapouter">
+                                <div class="gmap_canvas">
+                                    <iframe id="gmap_canvas"
+                                            src="https://maps.google.com/maps?q=121%20King%20St%2C%20Melbourne%20VIC%203000%2C%20Australia&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed"></iframe>
+                                    <a href="https://sites.google.com/view/maps-api-v2/mapv2"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- google-map-area end -->
+                    <!-- contact us form start -->
+                    <div class="contact-us-form">
+                        <div class="sec-heading-area mt-5">
+                            <h2>Contact US</h2>
+                        </div>
+                        <div class="contact-form">
+                            @await Component.InvokeAsync("Message")
+                        </div>
+                    </div>
+                    <!-- contact us form end -->
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <aside class="widget widget-tags">
+                    <h3 class="sidebar-title"><span>Popular Tags</span></h3>
+                    <ul>
+                        @foreach (var item in tags)
+                        {
+                            <li><a asp-controller="blog" class="medium">@item.Name</a></li>
+                        }
+                    </ul>
+                    <a class="n-a-btn" asp-controller="blog">View All Tags</a>
+                </aside>
+                <aside class="widget widget-banner border-hover">
+                    <a asp-controller="shop"><img src="~/img/banner/banner-30.jpg" alt="ipad mini"></a>
+                </aside>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Contact Us Area-->

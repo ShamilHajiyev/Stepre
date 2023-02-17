@@ -1,0 +1,80 @@
+﻿@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "Cart";
+    List<CartViewModel> models = Model;
+}
+
+<!--Cart Main Area Start-->
+<section class="cart-main-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="s-title">
+                    <h1>Shopping Cart</h1>
+                </div>
+                <form action="#">
+                    <div class="cart-table table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th class="p-times">Remove</th>
+                                    <th class="p-image">Images</th>
+                                    <th class="p-name">Product Name</th>
+                                    <th class="p-amount">Unit Price</th>
+                                    <th class="p-quantity">Qty</th>
+                                    <th class="p-total">SubTotal</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    decimal total = 0;
+                                }
+                                @foreach (var item in models){
+                                    <tr>
+                                        <td class="p-action"><a asp-controller="home" asp-action="removefromcart" asp-route-id="@item.Id"><i class="fa fa-times"></i></a></td>
+                                        <td class="p-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img class="w-50"lt="" src="~/img/@item.PrimaryImageUrl"></a>
+                                        </td>
+                                        <td class="p-name">
+                                            <a asp-controller="product">@item.Name</a>
+                                        </td>
+                                        <td class="p-amount"><span class="amount">$@item.Price</span></td>
+                                        <td class="p-quantity"><input type="text" value="@item.Count"></td>
+                                        <td class="p-total">$@(item.Count * item.Price)</td>
+                                        @{
+                                            total += item.Count * item.Price;
+                                        }
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="all-cart-buttons">
+                            <a asp-controller="shop">Continue Shopping</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-4">
+                            <div class="amount-totals">
+                                <p class="total">Subtotal: <span>$@total</span></p>
+                                <input type="submit" value="PROCCED TO CHECKOUT" name="#" class="button">
+                                <p class="multi-add">Checkout with multiples address</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of Cart Main Area-->
+
+@section Cart{
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '.fa-times', function () {
+                var item = $(this).parent().parent().parent();
+                item.css("display", "none");
+            })
+        })
+    </script>
+}

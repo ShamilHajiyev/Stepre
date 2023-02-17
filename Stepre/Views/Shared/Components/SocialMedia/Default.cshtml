@@ -1,0 +1,11 @@
+﻿@using Stepre.Models.Entities
+@{
+    List<SocialMedia> socialMedias = Model;
+}
+
+<ul class="social-icons">
+    @foreach (var item in socialMedias)
+    {
+        <li><i class="@item.Icon"></i><a href="@item.Url">@item.Platform</a></li>
+    }
+</ul>

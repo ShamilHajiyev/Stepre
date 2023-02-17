@@ -1,0 +1,80 @@
+﻿@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "About";
+    AboutViewModel aboutViewModel = Model;
+    var about = aboutViewModel.About;
+    var workers = aboutViewModel.Workers;
+}
+
+<!--About Area Start-->
+<div class="home-hello-info">
+    <div class="container">
+        <div class="row mt-3">
+            <div class="col-md-12">
+                <div class="f-title text-center">
+                    <h3 class="title text-uppercase">About Us</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-n-30px">
+            <div class="col-lg-7 col-sm-12 col-xs-12 mb-30px">
+                <div class="about-page-cntent">
+                    <h3>@about.Header</h3>
+                    <p>
+                        @about.TopContent
+                    </p>
+                    <blockquote>
+                        <p>
+                            @about.Quote
+                        </p>
+                    </blockquote>
+                    <p>
+                        @about.BottomContent
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-5 col-sm-12 col-xs-12 mb-30px">
+                <div class="img-element">
+                    <img src="~/img/@about.ImgUrl" alt="banner1">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of About Area-->
+<!--Our Team Start-->
+<div class="home-our-team">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="f-title text-center">
+                    <h3 class="title text-uppercase">Meet the team</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row mb-n-30px">
+            @foreach (var item in workers)
+            {
+                <div class="col-lg-3 col-md-6 col-sm-6 mb-30px">
+                    <div class="item-team text-center">
+                        <div class="team-info">
+                            <div class="team-img">
+                                <img width="250" height="250" alt="team" class="img-responsive"
+                                 src="~/img/@item.ImgUrl">
+                                <div class="mask">
+                                    <div class="mask-inner">
+                                        <a href="@item.FacebookUrl"><i class="fa fa-facebook"></i></a>
+                                        <a href="@item.TwitterUrl"><i class="fa fa-twitter"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h4>@item.Name @item.Surname</h4>
+                        <h5>@item.Profession</h5>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<!--End of Our Team-->

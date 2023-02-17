@@ -1,0 +1,19 @@
+﻿@{
+    Contact contact = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Contact</h4>
+                <p>
+                    @contact.Name
+                </p>
+                <p>
+                    @contact.ContactType.Name
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

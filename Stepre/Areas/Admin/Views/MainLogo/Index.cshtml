@@ -1,0 +1,22 @@
+﻿@{
+    MainLogo logo = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Main logo</h4>
+                <p>
+                    @logo.ImgUrl
+                </p>
+                <p>
+                    @logo.ImgAlternative
+                </p>
+                <p>
+                    <a class="btn btn-success" asp-action="update">Update</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

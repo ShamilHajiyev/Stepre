@@ -1,0 +1,56 @@
+﻿@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "Blog";
+    BlogViewModel blogViewModel = Model;
+    var blogs = blogViewModel.Blogs;
+}
+
+<section class="blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="arrival-heading">
+                    <h2>Latest Blog</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in blogs)
+            {
+                <div class="col-lg-4 col-md-6 mb-30px">
+                    <div class="single-blog">
+                        <div class="blog-image white-hover">
+                            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                <img src="~/img/@item.ImageUrl" alt="">
+                                <span>Read more <i class="fa fa-angle-right"></i></span>
+                            </a>
+                        </div>
+                        <div class="blog-info">
+                            <h4><a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                            @if (item.Content.Length > 60)
+                            {
+                                <p>
+                                    @item.Content.Substring(0, 57) ...
+                                </p>
+                            }
+                            else
+                            {
+                                <p>
+                                    @item.Content
+                                </p>
+                            }
+                            <div class="post_info">
+                                <p class="author">By <span>@item.PublisherName</span></p>
+                                <p class="comment">
+                                </p>
+                                <p class="date">
+                                    <span class="count">@item.PublishDate.ToLongDateString()</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

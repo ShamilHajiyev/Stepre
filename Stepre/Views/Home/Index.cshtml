@@ -1,0 +1,875 @@
+﻿@using Stepre.Models.Entities
+@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "Home";
+    HomeViewModel homeViewModel = Model;
+    var freeShippingValue = homeViewModel.FreeShippingValue;
+    decimal minimalAmount = (decimal)freeShippingValue.MinimalAmount;
+    var phoneNumber = homeViewModel.PhoneNumber;
+    var categories = homeViewModel.Categories;
+    var catAreaCategories = categories.OrderByDescending(x => x.Products.Count).Take(6).ToList();
+    var promotionAreaCategories = categories.OrderByDescending(x => x.Products.Count).Take(10).ToList();
+    var products = homeViewModel.Products;
+    var featuresTabCategories = categories.OrderByDescending(x => x.Products.Count).Take(3).ToList();
+    var tags = homeViewModel.Tags;
+    var promotionAreaProducts = products.Take(2).ToList();
+    var blogs = homeViewModel.Blogs;
+    var latestNewsBlogs = blogs.OrderByDescending(x => x.PublishDate).Take(4).ToList();
+    var latestBlogs = blogs.OrderByDescending(x => x.PublishDate).Take(3).ToList();
+}
+
+<!--Slider Area Start-->
+<div class="slider-area">
+    <div class="preview-2">
+        <div id="nivoslider" class="slides">
+            <img src="~/img/slider/slider-1.jpg" alt="" title="#slider-direction-1" />
+            <img src="~/img/slider/slider-2.jpg" alt="" title="#slider-direction-2" />
+        </div>
+        <!-- direction 1 -->
+        <div id="slider-direction-1" class="t-cn slider-direction">
+            <div class="slider-progress"></div>
+            <!-- layer 1 -->
+            <div class="layer-1">
+                <img src="~/img/slider/slider-l-1.png" alt="" />
+            </div>
+            <!-- layer 2 -->
+            <div class="layer-2">
+                <img src="~/img/slider/slider-l-2.png" alt="" />
+            </div>
+            <!-- layer 3 -->
+            <div class="layer-3">
+                <img src="~/img/slider/slider-l-3.png" alt="" />
+            </div>
+            <!-- layer 4 -->
+            <div class="layer-4">
+                <img src="~/img/slider/slider-l-4.png" alt="" />
+            </div>
+            <!-- layer 5 -->
+            <div class="layer-5">
+                <img src="~/img/slider/slider-l-5.png" alt="" />
+            </div>
+            <!-- layer 6 -->
+            <div class="wow bounceInDown layer-6" data-wow-duration="3s" data-wow-delay="3.5s">
+                <img src="~/img/slider/slider-l-6.png" alt="" />
+            </div>
+            <div class="slider-content slider-text-1">
+                <div class="wow bounceInDown" data-wow-duration="3s" data-wow-delay="3s">
+                    <h1 class="title1">Booking gifts to $988</h1>
+                </div>
+            </div>
+        </div>
+        <!-- direction 2 -->
+        <div id="slider-direction-2" class="slider-direction">
+            <div class="slider-progress"></div>
+            <!-- layer 7 -->
+            <div class="wow bounceInDown t-cn layer-7" data-wow-duration="3s" data-wow-delay="0s">
+                <img class="t-cn" src="~/img/slider/slider-l-logo.png" alt="" />
+            </div>
+            <div class="slider-content slider-text-2">
+                <div class="wow bounceInDown" data-wow-duration="3s" data-wow-delay="1s">
+                    <h1 class="title1">Technological head</h1>
+                </div>
+            </div>
+            <div class="slider-content slider-text-3">
+                <div class="wow bounceInRight" data-wow-duration="3s" data-wow-delay="3s">
+                    <h5 class="title1">
+                        The design improvement, increased screen size and impressive camera meant
+                        that they shattered sales records in 2022<br>
+                        Apple Pay, Touch ID, best smartphone camera on the market
+                    </h5>
+                </div>
+            </div>
+            <div class="slider-content slider-text-4">
+                <div class="wow bounceInUp" data-wow-duration="3s" data-wow-delay="3s">
+                    <a asp-controller="shop" asp-action="index" class='button-text'>Buy Now <i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Slider Area-->
+<!--Category Service Area Start-->
+<section class="cat-service-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 d-none d-lg-block">
+                <div class="cat-menu">
+                    <ul id="category">
+                        <li class="cat-title"><a asp-controller="shop">Categories</a></li>
+                        @foreach (var item in catAreaCategories)
+                        {
+                            <li><a asp-controller="shop">@Html.Raw(item.Name)</a></li>
+                        }
+                        <li><a asp-controller="shop">all categories</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-7 col-sm-12">
+                <div class="cat-service-banner border-hover">
+                    <a asp-controller="shop">
+                        <img src="~/img/banner/banner-1.jpg" alt="">
+                        <div class="banner-text">
+                            <h3>Toshiba Satellite Z930</h3>
+                            <h2>Price $564</h2>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-5 hidden-sm">
+                @if (phoneNumber != null)
+                {
+                    <div class="single-info">
+                        <div class="s-icon"><i class="fa fa-phone"></i></div>
+                        <div class="single-info-text">
+                            <h3><span>Phone:</span>@phoneNumber.Name</h3>
+                        </div>
+                    </div>
+                }
+                @if (freeShippingValue.IsExist)
+                {
+                    <div class="single-info">
+                        <div class="s-icon"><i class="fa fa-truck"></i></div>
+                        <div class="single-info-text">
+                            <h3>Free shipping</h3>
+                            <p>On order over $@minimalAmount.ToString("G29")</p>
+                        </div>
+                    </div>
+                }
+                <div class="single-info">
+                    <div class="s-icon"><i class="fa fa-money"></i></div>
+                    <div class="single-info-text">
+                        <h3><span>Money</span> back 100%</h3>
+                        <p>Within 30 Days delivery</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of Category Service Area-->
+<!--New Arrivals Carousel Area Start-->
+<section class="new-arrival-carousel-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="arrival-heading">
+                    <h2>New arrivals</h2>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="m-lr-n-15px">
+            <div class="new-arrival-carousel">
+                @foreach (var item in products)
+                {
+                    <div class="p-lr-15px">
+                        <div class="single-product">
+                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                            </a>
+                            <div class="product-info">
+                                <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                <h5>$@item.Price</h5>
+                                <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of New Arrivals Carousel Area-->
+<!--Product Banner Area Start-->
+<div class="product-banner-area border-hover">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6">
+                <a asp-controller="shop"><img src="~/img/banner/banner-2.jpg" alt="apple watch"></a>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <a asp-controller="shop"><img src="~/img/banner/banner-3.jpg" alt="canon cameras"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Product Banner Area-->
+<!--Features Tab Area Start-->
+<div class="features-tab-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-4">
+                <aside class="widget widget-banner border-hover">
+                    <a asp-controller="shop"><img src="~/img/banner/banner-4.jpg" alt="iphone 6s"></a>
+                </aside>
+                <aside class="widget widget-tags">
+                    <h3 class="sidebar-title"><span>Popular Tags</span></h3>
+                    <ul>
+                        @foreach (var item in tags)
+                        {
+                            <li><a asp-controller="blog" class="medium">@item.Name</a></li>
+                        }
+                    </ul>
+                    <a class="n-a-btn" asp-controller="blog">View All Tags</a>
+                </aside>
+            </div>
+            <div class="col-lg-9 col-md-8">
+                <div class="features-tab">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        @{
+                            bool isFirstCategory = true;
+                            foreach (var item in featuresTabCategories)
+                            {
+                                @if (isFirstCategory)
+                                {
+                                    <li role="presentation">
+                                        <a class="active" href="#@item.Name.Replace(" ", "_")" aria-controls="@item.Name.Replace(" ", "_")" role="tab"
+                                   data-bs-toggle="tab">@Html.Raw(item.Name)</a>
+                                    </li>
+                                    isFirstCategory = false;
+                                }
+                                else
+                                {
+                                    <li role="presentation">
+                                        <a href="#@item.Name.Replace(" ", "_")" aria-controls="@item.Name.Replace(" ", "_")" role="tab"
+                                   data-bs-toggle="tab">@Html.Raw(item.Name)</a>
+                                    </li>
+                                }
+                            }
+                        }
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="tab-content">
+                    @{
+                        int takeCount = 2;
+                        int skipCount = 0;
+                    }
+                    <div role="tabpanel" class="tab-pane fade show active " id="@featuresTabCategories[0].Name.Replace(" ", "_")">
+                        <div class="m-lr-n-15px">
+                            <div class="single-p-slide">
+                                @{
+                                    List<List<Product>> lists1 = new List<List<Product>>();
+                                    var cat1Products = products.Where(x => x.Category == featuresTabCategories[0]).ToList();
+                                    
+                                    decimal cat1ListCount = Math.Ceiling((decimal)cat1Products.Count() / 2);
+                                    for (var i = 0; i < cat1ListCount; i++)
+                                    {
+                                        lists1.Add(cat1Products.Skip(skipCount).Take(takeCount).ToList());
+                                        skipCount += takeCount;
+                                    }
+
+                                    foreach (var list in lists1)
+                                    {
+                                        <div class="p-lr-15px">
+                                            @foreach (var item in list)
+                                            {
+                                                    <div class="single-product">
+                                                    <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                                            <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                                            <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                                        </a>
+                                                        <div class="product-info">
+                                                        <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                                            <h5>$@item.Price</h5>
+                                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                            <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                                        </div>
+                                                    </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade " id="@featuresTabCategories[1].Name.Replace(" ", "_")">
+                        <div class="m-lr-n-15px">
+                            <div class="single-p-slide">
+                                @{
+                                    skipCount = 0;
+                                    List<List<Product>> lists2 = new List<List<Product>>();
+                                    var cat2Products = products.Where(x => x.Category == featuresTabCategories[1]).ToList();
+                                    
+                                    decimal cat2ListCount = Math.Ceiling((decimal)cat2Products.Count() / 2);
+                                    for (var i = 0; i < cat2ListCount; i++)
+                                    {
+                                        lists2.Add(cat2Products.Skip(skipCount).Take(takeCount).ToList());
+                                        skipCount += takeCount;
+                                    }
+
+                                    foreach (var list in lists2)
+                                    {
+                                        <div class="p-lr-15px">
+                                            @foreach (var item in list)
+                                            {
+                                                    <div class="single-product">
+                                                    <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                                            <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                                            <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                                        </a>
+                                                        <div class="product-info">
+                                                        <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                                            <h5>$@item.Price</h5>
+                                                        <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                            <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                                        </div>
+                                                    </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade " id="@featuresTabCategories[2].Name.Replace(" ", "_")">
+                        <div class="m-lr-n-15px">
+                            <div class="single-p-slide">
+                                @{
+                                    skipCount = 0;
+                                    List<List<Product>> lists3 = new List<List<Product>>();
+                                    var cat3Products = products.Where(x => x.Category == featuresTabCategories[2]).ToList();
+
+                                    decimal cat3ListCount = Math.Ceiling((decimal)cat3Products.Count() / 2);
+                                    for (var i = 0; i < cat3ListCount; i++)
+                                    {
+                                        lists3.Add(cat3Products.Skip(skipCount).Take(takeCount).ToList());
+                                        skipCount += takeCount;
+                                    }
+
+                                    foreach (var list in lists3)
+                                    {
+                                        <div class="p-lr-15px">
+                                            @foreach (var item in list)
+                                            {
+                                                    <div class="single-product">
+                                                    <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                                            <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                                            <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                                        </a>
+                                                        <div class="product-info">
+                                                        <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                                            <h5>$@item.Price</h5>
+                                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                            <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                                        </div>
+                                                    </div>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Features Tab Area-->
+<!--Full Width Banner Area-->
+<div class="full-width-banner-area border-hover">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <a asp-controller="shop"><img src="~/img/banner/banner-5.jpg" alt="lenovo laptop"></a>
+            </div>
+        </div>
+    </div>
+</div>
+<!--End of Full Width Banner Area-->
+<!--Featured Bottom Tab Area Start-->
+<section class="features-tab-area bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12">
+                <div class="features-tab bottom">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation">
+                            <a class="active" href="#featured" aria-controls="featured"
+                               role="tab" data-bs-toggle="tab">Featured</a>
+                        </li>
+                        <li role="presentation">
+                            <a href="#bestseller" aria-controls="bestseller" role="tab"
+                               data-bs-toggle="tab">BESTSELLER</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="clearfix"></div>
+                <div class="tab-content row">
+                    <div role="tabpanel" class="tab-pane fade show active" id="featured">
+                        <div class="m-lr-n-15px">
+                            <div class="single-p-slide-bottom">
+                                @foreach (var item in products)
+                                {
+                                    <div class="p-lr-15px">
+                                        <div class="single-product">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                                <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                                <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                            </a>
+                                            <div class="product-info">
+                                                <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                                <h5>$@item.Price</h5>
+                                                <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="bestseller">
+                        <div class="m-lr-n-15px">
+                            <div class="single-p-slide">
+                                @foreach (var item in products)
+                                {
+                                    <div class="p-lr-15px">
+                                        <div class="single-product">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                                <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                                <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                            </a>
+                                            <div class="product-info">
+                                                <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                                <h5>$@item.Price</h5>
+                                                <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn"><i class="fa fa-shopping-cart"></i>Add to cart</a>
+                                                <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class="latest-heading">
+                    <h2>Latest News</h2>
+                </div>
+                <div class="latest-news">
+                    @foreach (var item in latestNewsBlogs)
+                    {
+                        <div class="single-news">
+                            <div class="single-image">
+                                <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                    <img src="~/img/@item.ImageUrl" alt="">
+                                    <span><i class="fa fa-caret-right"></i></span>
+                                </a>
+                            </div>
+                            <div class="news-info">
+                                <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                    <h5>@item.Name</h5>
+                                </a>
+                                @if (item.Content.Length > 35)
+                                {
+                                    <p>@item.Content.Substring(0, 32) ...</p>
+                                }
+                                else{
+                                    <p>@item.Content</p>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of Featured Bottom Tab Area-->
+<!--Sidebar and Promotion Area Start-->
+<section class="sidebar-promotion-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-12">
+                <div class="promotion-tab">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" role="tablist">
+                        @{
+                            bool isFirst = true;
+                            foreach (var item in promotionAreaCategories)
+                            {
+                                <li role="presentation">
+                                    @if (isFirst)
+                                    {
+                                        <a class="active" href="#@item.Name.Replace(" ", "").Replace("&", "")" aria-controls="@item.Name.Replace(" ", "").Replace("&", "")" role="tab" data-bs-toggle="tab">
+                                            @Html.Raw(item.Name)
+                                        </a>
+                                        isFirst = false;
+                                    }
+                                    else
+                                    {
+                                        <a href="#@item.Name.Replace(" ", "").Replace("&", "")" aria-controls="@item.Name.Replace(" ", "").Replace("&", "")" role="tab" data-bs-toggle="tab">
+                                            @Html.Raw(item.Name)
+                                        </a>
+                                    }
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-9 col-md-12">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade active show" id="@promotionAreaCategories[0].Name.Replace(" ", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category0Products = products.Where(x => x.Category == promotionAreaCategories[0]).Take(2).ToList();
+                            }
+                            @foreach (var item in category0Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[1].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category1Products = products.Where(x => x.Category == promotionAreaCategories[1]).Take(2).ToList();
+                            }
+                            @foreach (var item in category1Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[2].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category2Products = products.Where(x => x.Category == promotionAreaCategories[2]).Take(2).ToList();
+                            }
+                            @foreach (var item in category2Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[3].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category3Products = products.Where(x => x.Category == promotionAreaCategories[3]).Take(2).ToList();
+                            }
+                            @foreach (var item in category3Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[4].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category4Products = products.Where(x => x.Category == promotionAreaCategories[4]).Take(2).ToList();
+                            }
+                            @foreach (var item in category4Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[5].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category5Products = products.Where(x => x.Category == promotionAreaCategories[5]).Take(2).ToList();
+                            }
+                            @foreach (var item in category5Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[6].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category6Products = products.Where(x => x.Category == promotionAreaCategories[6]).Take(2).ToList();
+                            }
+                            @foreach (var item in category6Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[7].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category7Products = products.Where(x => x.Category == promotionAreaCategories[7]).Take(2).ToList();
+                            }
+                            @foreach (var item in category7Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[8].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category8Products = products.Where(x => x.Category == promotionAreaCategories[8]).Take(2).ToList();
+                            }
+                            @foreach (var item in category8Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="@promotionAreaCategories[9].Name.Replace(" ", "").Replace("&", "")">
+                        <div class="row mb-n-30px">
+                            @{
+                                var category9Products = products.Where(x => x.Category == promotionAreaCategories[9]).Take(2).ToList();
+                            }
+                            @foreach (var item in category9Products)
+                            {
+                                <div class="col-lg-6 col-md-6 col-sm-12 mb-30px">
+                                    <div class="single-tab">
+                                        <div class="tab-product-image">
+                                            <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id"><img width="50%" src="~/img/@item.PrimaryImageUrl" alt=""></a>
+                                        </div>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                        </div>
+                                        <div class="tab-buttons">
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of Sidebar and Promotion Area-->
+<!--Blog Area Start-->
+<section class="blog-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <div class="arrival-heading">
+                    <h2>Latest Blog</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var item in latestBlogs)
+            {
+                <div class="col-lg-4 col-md-6 mb-30px">
+                    <div class="single-blog">
+                        <div class="blog-image white-hover">
+                            <a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">
+                                <img src="~/img/@item.ImageUrl" alt="">
+                                <span>Read more <i class="fa fa-angle-right"></i></span>
+                            </a>
+                        </div>
+                        <div class="blog-info">
+                            <h4><a asp-controller="blog" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                            @if (item.Content.Length > 60)
+                            {
+                                <p>
+                                    @item.Content.Substring(0, 57) ...
+                                </p>
+                            }
+                            else{
+                                <p>
+                                    @item.Content
+                                </p>
+                            }
+                            <div class="post_info">
+                                <p class="author">By <span>@item.PublisherName</span></p>
+                                <p class="comment">
+                                </p>
+                                <p class="date">
+                                    <span class="count">@item.PublishDate.ToLongDateString()</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+<!--End of Blog Area-->

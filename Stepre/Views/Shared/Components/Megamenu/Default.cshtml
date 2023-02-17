@@ -1,0 +1,42 @@
+﻿@using Stepre.Models.Entities
+@{
+    List<Category> categories = Model;
+    List<List<Category>> lists = new List<List<Category>>();
+    int takeCount = 5;
+    int skipCount = 0;
+    decimal smallListCount = Math.Ceiling((decimal)categories.Count() / 6);
+    for (var i = 0; i < smallListCount; i++)
+    {
+        lists.Add(categories.Skip(skipCount).Take(takeCount).ToList());
+        skipCount += takeCount;
+    }
+}
+
+<div class="megamenu">
+    <div class="megamenu-list clearfix">
+        @{
+            foreach (var list in lists)
+            {
+                <span>
+                    @foreach (var item in list)
+                    {
+                        <a asp-controller="shop" class="fw-normal">@Html.Raw(item.Name)</a>
+                    }
+                </span>
+            }
+        }
+    </div>
+    <div class="p-lr-15px">
+        <div class="megamenu-image clearfix row">
+            <div class="col-lg-4 col-md-4 col-sm-4 mega-banner border-hover">
+                <a href="#"><img src="~/img/mega-b-1.jpg" alt="shop now"></a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mega-banner border-hover">
+                <a href="#"><img src="~/img/mega-b-2.jpg" alt="shop now"></a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-4 mega-banner border-hover">
+                <a href="#"><img src="~/img/mega-b-3.jpg" alt="shop now"></a>
+            </div>
+        </div>
+    </div>
+</div>

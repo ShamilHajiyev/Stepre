@@ -1,0 +1,19 @@
+﻿@{
+    DestinationCity destinationCity = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Destination city</h4>
+                <p>
+                    @destinationCity.Name
+                </p>
+                <p>
+                    @destinationCity.DestinationCountry.Name
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

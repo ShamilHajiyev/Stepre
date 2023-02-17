@@ -1,0 +1,30 @@
+﻿@using Stepre.Models.Entities
+@{
+    List<Product> products = Model;
+    var id = ViewContext.RouteData.Values["id"];
+    var currentProduct = products.SingleOrDefault(x => x.Id.ToString() == id.ToString());
+    var relatedProducts = products.Where(x => x.Category.Name == currentProduct.Category.Name).ToList();
+}
+
+<div class="col-md-12 col-lg-3 sidebar-info">
+    <div class="feature-heading">
+        <h2>Related Products </h2>
+    </div>
+    @foreach (var item in relatedProducts)
+    {
+        <div class="single-news">
+            <div class="single-image">
+                <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                    <img src="~/img/@item.PrimaryImageUrl" alt="">
+                </a>
+            </div>
+            <div class="product-info">
+                <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                <h5>$@item.Price </h5>
+            </div>
+        </div>
+    }
+    <aside class="widget widget-banner border-hover mt-30px">
+        <a asp-controller="shop" asp-action="index"><img src="~/img/banner/banner-30.jpg" alt="ipad mini"></a>
+    </aside>
+</div>

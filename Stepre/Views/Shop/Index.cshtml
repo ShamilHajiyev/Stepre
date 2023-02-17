@@ -1,0 +1,161 @@
+﻿@using Stepre.Models.Entities
+@using Stepre.Models.ViewModels
+@{
+    ViewData["Title"] = "Shop";
+    ShopViewModel shopViewModel = Model;
+    var categories = shopViewModel.Categories;
+    var catAreaCategories = categories.OrderByDescending(x => x.Products.Count).Take(6).ToList();
+    var products = shopViewModel.Products;
+    var tags = shopViewModel.Tags;
+}
+
+<!--Category Service Area Start-->
+<section class="cat-service-area">
+    <div class="container">
+        <div class="row flex-md-row-reverse">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="cat-service-banner">
+                    <a href="#">
+                        <img src="~/img/banner/banner-29.jpg" alt="macbook air">
+                    </a>
+                </div>
+                <div class="shop-item-filter">
+                    <div class="shop-tab">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs navbar-left" role="tablist">
+                            <li role="presentation">
+                                <a href="#grid" class="grid-view active" aria-controls="grid"
+                                   role="tab" data-bs-toggle="tab"></a>
+                            </li>
+                            <li role="presentation">
+                                <a href="#list" class="list-view" aria-controls="list"
+                                   role="tab" data-bs-toggle="tab"></a>
+                            </li>
+                        </ul>
+                        <div class="filters">
+                            <div class="filter-by">
+                                <h4>Sort by </h4>
+                                    <div class="select-filter">
+                                    <select id="product-sort">
+                                            <option id="nameAsc" value="nameAsc">Name</option>
+                                            <option id="nameDesc" value="nameDesc">Name Desc</option>
+                                            <option id="priceAsc" value="priceAsc">Price</option>
+                                            <option id="priceDesc" value="priceDesc">Price Desc</option>
+                                    </select>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="tab-content" id="main-products">
+                    <div role="tabpanel" class="tab-pane fade show active" id="grid">
+                        <div class="row" id="filtered-products">
+                            @foreach (var item in products)
+                            {
+                                <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
+                                    <div class="single-product">
+                                        <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                            <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                            <img class="secondary-img" src="~/img/@item.SecondaryImageUrl" alt="">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                            <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade" id="list">
+                        <div class="row product-list">
+                            <div class="col-md-12">
+                                @foreach (var item in products)
+                                {
+                                    <div class="single-product">
+                                        <a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">
+                                            <img class="primary-img" src="~/img/@item.PrimaryImageUrl" alt="">
+                                        </a>
+                                        <div class="product-info">
+                                            <h4><a asp-controller="shop" asp-action="details" asp-route-id="@item.Id">@item.Name</a></h4>
+                                            <h5>$@item.Price</h5>
+                                            <p>
+                                                @item.Details
+                                            </p>
+                                            <a asp-controller="home" asp-action="addToCart" asp-route-id="@item.Id" class="n-a-btn" class="n-a-btn">
+                                                <i class="fa fa-shopping-cart"></i>Add to
+                                                cart
+                                            </a>
+                                            <a class="wishlist" href="#"><i class="fa fa-heart"></i></a>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-12">
+                <div class="cat-menu d-none d-lg-block">
+                    <ul id="category">
+                        <li class="cat-title"><a href="#">Categories</a></li>
+                        @foreach (var item in catAreaCategories)
+                        {
+                            <li><a asp-controller="shop">@Html.Raw(item.Name)</a></li>
+                        }
+                        <li><a asp-controller="shop">all categories</a></li>
+                    </ul>
+                </div>
+                <div class="p-widget-title top-title">
+                    <div class="left-sidebar-title">
+                        <h3>Shop by</h3>
+                    </div>
+                </div>
+                <aside class="widget-price">
+                    <h3 class="sidebar-sub-title">Price Slider</h3>
+                    <div class="price_filter">
+                        <div id="slider-range"></div>
+                        <div class="price_slider_amount">
+                            <form class="form-action mb-3" id="price-slider-input">
+                                <div class="form-group">
+                                    <input type="text" id="amount" name="price" placeholder="Add Your Price" />
+                                    <input class="btn-sm mt-3 float-start" type="submit" value="Filter" id="filter-price">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </aside>
+                <aside class="widget-list pt-5">
+                    <h3 class="sidebar-sub-title">Categories</h3>
+                    <ul id="product-list">
+                        @foreach (var item in categories)
+                        {
+                            <li class="d-flex align-content-center">
+                                <form class="mb-0 category-filter-input">
+                                    <input class="h5 btn mb-0 category-filter" type="submit" value="@item.Name">
+                                </form>
+                            </li>
+                        }
+                    </ul>
+                </aside>
+                <aside class="widget widget-tags">
+                    <h3 class="sidebar-title"><span>Popular Tags</span></h3>
+                    <ul>
+                        @foreach (var item in tags)
+                        {
+                            <li><a asp-controller="blog" class="medium">@item.Name</a></li>
+                        }
+                    </ul>
+                    <a class="n-a-btn" asp-controller="blog">View All Tags</a>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<!--End of Category Service Area-->

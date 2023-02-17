@@ -1,0 +1,34 @@
+﻿@using Stepre.Models.Entities
+@using System.Globalization
+@{
+    List<Contact> contacts = Model;
+    TextInfo ti = CultureInfo.CurrentCulture.TextInfo;
+}
+
+@foreach (var item in contacts)
+{
+    <p class="information">
+        @switch (item.ContactType.Name)
+        {
+            case "phone":
+                <i class="fa fa-circle-o lemon"></i>
+                break;
+            case "address":
+                <i class="fa fa-circle-o blue"></i>
+                break;
+            case "web":
+                <i class="fa fa-circle-o yellow"></i>
+                break;
+            case "email":
+                <i class="fa fa-circle-o dark-yellow"></i>
+                break;
+            default:
+                <i class="fa fa-circle-o "></i>
+                break;
+        }
+        @ti.ToTitleCase(item.ContactType.Name):
+        <span>
+            @item.Name
+        </span>
+    </p>
+}

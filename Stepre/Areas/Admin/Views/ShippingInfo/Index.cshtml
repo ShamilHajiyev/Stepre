@@ -1,0 +1,19 @@
+﻿@{
+    ShippingInformation info = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Shipping information</h4>
+                <p>
+                    @info.Content
+                </p>
+                <p>
+                    <a class="btn btn-success" asp-action="update">Update</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

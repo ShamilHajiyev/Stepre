@@ -1,0 +1,12 @@
+﻿@using Stepre.Models.Entities
+@{
+    List<SupportedPayment> supportedPayments = Model;
+}
+
+<h2>Supported Payments</h2>
+<div class="support-payments">
+    @foreach (var item in supportedPayments)
+    {
+        <i class="@item.ImgUrl"></i>
+    }
+</div>

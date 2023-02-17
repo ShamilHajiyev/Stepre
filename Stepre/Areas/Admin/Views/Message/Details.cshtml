@@ -1,0 +1,25 @@
+﻿@{
+    Message message = Model;
+}
+
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Message</h4>
+                <p class="h3">
+                    @message.Name
+                </p>
+                <p class="h5">
+                    @message.Email
+                </p>
+                <p class="h5">
+                    @message.Subject
+                </p>
+                <p class="py-2">
+                    @message.Content
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

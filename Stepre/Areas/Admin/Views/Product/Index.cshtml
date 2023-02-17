@@ -1,0 +1,92 @@
+﻿@{
+    List<Product> products = Model;
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Products</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Primary image url</th>
+                                    <th>Secondary image url</th>
+                                    <th>Price</th>
+                                    <th>Count</th>
+                                    <th>Details</th>
+                                    <th>Description</th>
+                                    <th>Category</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in products)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.PrimaryImageUrl</td>
+                                        <td>@item.SecondaryImageUrl</td>
+                                        <td>@item.Price</td>
+                                        <td>@item.Count</td>
+                                        @if (item.Details.Length > 60)
+                                        {
+                                            <td>
+                                                @item.Details.Substring(0, 57) ...
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @item.Details
+                                            </td>
+                                        }
+                                        @if (item.Description.Length > 60)
+                                        {
+                                            <td>
+                                                @item.Description.Substring(0, 57) ...
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                        }
+                                        <td>@item.Category.Name</td>
+                                        <td class="d-flex justify-content-center align-content-center">
+                                            <a class="btn btn-primary" asp-action="details" asp-route-id="@item.Id">Details</a>
+                                            <a class="btn btn-success" asp-action="update" asp-route-id="@item.Id">Update</a>
+                                            <button class="btn btn-danger" id="delete-product" value="@item.Id">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Product{
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#delete-product', function () {
+                var id = $(this).val();
+                var item = $(this).parent().parent();
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/product/delete?id=" + id,
+                    success: function () {
+                        item.css("display", "none")
+                    }
+                });
+            })
+        })
+    </script>
+}

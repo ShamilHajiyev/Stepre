@@ -1,0 +1,68 @@
+﻿@{
+    List<Worker> workers = Model;
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Workers</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Surname</th>
+                                    <th>Profession</th>
+                                    <th>Image url</th>
+                                    <th>Facebook url</th>
+                                    <th>Twitter url</th>
+                                    <th>Salary</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in workers)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.Surname</td>
+                                        <td>@item.Profession</td>
+                                        <td>@item.ImgUrl</td>
+                                        <td>@item.FacebookUrl</td>
+                                        <td>@item.TwitterUrl</td>
+                                        <td>@item.Salary</td>
+                                        <td class="d-flex justify-content-center align-content-center">
+                                            <a class="btn btn-primary" asp-action="details" asp-route-id="@item.Id">Details</a>
+                                            <a class="btn btn-success" asp-action="update" asp-route-id="@item.Id">Update</a>
+                                            <button class="btn btn-danger" id="delete-worker" value="@item.Id">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Worker{
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#delete-worker', function () {
+                var id = $(this).val();
+                var item = $(this).parent().parent();
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/worker/delete?id=" + id,
+                    success: function () {
+                        item.css("display", "none")
+                    }
+                });
+            })
+        })
+    </script>
+}

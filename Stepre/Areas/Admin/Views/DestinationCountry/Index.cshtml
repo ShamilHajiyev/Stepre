@@ -1,0 +1,56 @@
+﻿@{
+    List<DestinationCountry> destinationCountries = Model;
+}
+
+<div class="content-wrapper">
+    <div class="row">
+        <div class="grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Destination countries</h4>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th class="text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in destinationCountries)
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td class="d-flex justify-content-center align-content-center">
+                                            <a class="btn btn-primary" asp-action="details" asp-route-id="@item.Id">Details</a>
+                                            <a class="btn btn-success" asp-action="update" asp-route-id="@item.Id">Update</a>
+                                            <button class="btn btn-danger" id="delete-destination-country" value="@item.Id">Delete</button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section DestinationCountry{
+    <script>
+        $(document).ready(function () {
+            $(document).on('click', '#delete-destination-country', function () {
+                var id = $(this).val();
+                var item = $(this).parent().parent();
+                $.ajax({
+                    method: "POST",
+                    url: "/admin/destinationcountry/delete?id=" + id,
+                    success: function () {
+                        item.css("display", "none")
+                    }
+                });
+            })
+        })
+    </script>
+}

@@ -1,0 +1,30 @@
+﻿@using Stepre.Areas.Admin.Models.CreateModels
+@model SocialMediaCreateModel
+<div class="row">
+    <div class="col-md-12 grid-margin stretch-card">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title"> Create social media link</h4>
+                <form class="forms-sample" method="post" asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="Platform">Platform</label>
+                        <input asp-for="Platform" class="form-control" placeholder="Platform">
+                        <span asp-validation-for="Platform" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Url">Url</label>
+                        <input asp-for="Url" class="form-control" placeholder="Url">
+                        <span asp-validation-for="Url" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Icon">Icon</label>
+                        <input asp-for="Icon" class="form-control" placeholder="Icon">
+                        <span asp-validation-for="Icon" class="text-danger"></span>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                    <button class="btn btn-light" asp-action="Index">Cancel</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

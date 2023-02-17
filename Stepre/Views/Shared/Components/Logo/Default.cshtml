@@ -1,0 +1,7 @@
+﻿@using Stepre.Models.Entities
+@{
+    MainLogo logo = Model;
+}
+<div class="logo">
+    <a asp-controller="home" asp-action="index"><img src="~/img/@logo.ImgUrl" alt="@logo.ImgAlternative"></a>
+</div>
